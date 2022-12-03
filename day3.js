@@ -1,0 +1,18 @@
+fetch("https://adventofcode.com/2022/day/3/input")
+    .then(r => r.text())
+    .then(t => t.split('\n').filter(x => !!x))
+    .then(a => a.map(r => [r.slice(0, r.length / 2), r.slice(r.length / 2)]))
+    .then(a => a.map(c => RegExp('['+c[0]+']').exec(c[1])[0]))
+    .then(a => a.map(c => (c.charCodeAt(0) - 38) % 58))
+    .then(p => p.reduce((a, b) => a + b, 0))
+    .then(console.log)
+
+
+fetch("https://adventofcode.com/2022/day/3/input")
+    .then(r => r.text())
+    .then(t => t.split('\n').filter(x => !!x))
+    .then(a => Array.from({ length: a.length / 3 }, () => a.splice(0, 3)))
+    .then(a => a.map(b => b[0].match(RegExp('['+b[1]+']', 'g')).map(s => b[2].match(RegExp('['+s+']', 'g'))).filter(x => !!x)[0][0]))
+    .then(a => a.map(c => (c.charCodeAt(0) - 38) % 58))
+    .then(p => p.reduce((a, b) => a + b, 0))
+    .then(console.log)
