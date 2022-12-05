@@ -1,0 +1,18 @@
+fetch("https://adventofcode.com/2022/day/5/input")
+    .then(r => r.text())
+    .then(t => t.split('\n\n'))
+    .then(d => [d[0].split('\n').map(r => r.match(/.{1,4}/g).map(i => i[1])), d[1]])
+    .then(d => [d[0][0].map((_, i) => d[0].map(r => r[i]).filter(x => x !== ' ')), d[1]])
+    .then(d => [d[0], d[1].split('\n').filter(x => !!x).map(s => /move (\d+) from (\d) to (\d)/g.exec(s).slice(1, 4).map(n => +n))])
+    .then(d => { d[1].forEach(i => d[0][i[2]-1] = [...d[0][i[1]-1].splice(0, i[0]).reverse(), ...d[0][i[2]-1]]); return d[0].map(s => s[0]).join('') })
+    .then(console.log)
+
+
+fetch("https://adventofcode.com/2022/day/5/input")
+    .then(r => r.text())
+    .then(t => t.split('\n\n'))
+    .then(d => [d[0].split('\n').map(r => r.match(/.{1,4}/g).map(i => i[1])), d[1]])
+    .then(d => [d[0][0].map((_, i) => d[0].map(r => r[i]).filter(x => x !== ' ')), d[1]])
+    .then(d => [d[0], d[1].split('\n').filter(x => !!x).map(s => /move (\d+) from (\d) to (\d)/g.exec(s).slice(1, 4).map(n => +n))])
+    .then(d => { d[1].forEach(i => d[0][i[2]-1] = [...d[0][i[1]-1].splice(0, i[0]), ...d[0][i[2]-1]]); return d[0].map(s => s[0]).join('') })
+    .then(console.log)
