@@ -48,14 +48,14 @@ fetch('https://adventofcode.com/2022/day/8/input')
                 var maxWest = false, distanceWest = 0;
 
                 for (var i = 1; i < Math.max(f.length, f[0].length); i++) {                    
-                    if (!maxNorth && y-i >= 0) { distanceNorth++; maxNorth = f[y-i][x] >= height; } else { maxNorth = true }   
-                    if (!maxEast && x+i < f[0].length) { distanceEast++; maxEast = f[y][x+i] >= height; } else { maxEast = true }   
-                    if (!maxSouth && y+i < f.length) { distanceSouth++; maxSouth = f[y+i][x] >= height } else { maxSouth = true }   
-                    if (!maxWest && x-i >= 0) { distanceWest++; maxWest = f[y][x-i] >= height } else { maxWest = true }   
+                    if (!maxNorth && y-i >= 0) { distanceNorth++; maxNorth = f[y-i][x] >= height; } else { maxNorth = true; }   
+                    if (!maxEast && x+i < f[0].length) { distanceEast++; maxEast = f[y][x+i] >= height; } else { maxEast = true; }   
+                    if (!maxSouth && y+i < f.length) { distanceSouth++; maxSouth = f[y+i][x] >= height; } else { maxSouth = true; }   
+                    if (!maxWest && x-i >= 0) { distanceWest++; maxWest = f[y][x-i] >= height; } else { maxWest = true; }   
                 }
 
                 // r[y][x] = { value: distanceNorth * distanceEast * distanceSouth * distanceWest, distanceNorth, distanceEast, distanceSouth, distanceWest, x, y };
-                r[y][x] = distanceNorth * distanceEast * distanceSouth * distanceWest;
+                r[y][x] = distanceNorth * distanceEast * (distanceSouth-1) * distanceWest;
             }
         }
 
