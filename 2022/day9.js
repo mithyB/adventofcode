@@ -31,3 +31,39 @@ fetch('https://adventofcode.com/2022/day/9/input')
     })
     .then(o => Object.keys(o).length)
     .then(console.log)
+
+fetch('https://adventofcode.com/2022/day/9/input')
+    .then(r => r.text())
+    .then(t => t.split('\n'))
+    .then(t => {
+        var r = {'0|0': true};
+        var rope = [];
+        for(var i = 0; i < 10; i++) { rope.push([0,0]); }
+        
+        t.forEach(l => {
+            c = l.split(' ');
+
+            for (var i = 0; i < parseInt(c[1]); i++) {
+                rope[rope.length-1][0] = c[0] === 'R' ? rope[rope.length-1][0] + 1 : c[0] === 'L' ? rope[rope.length-1][0] - 1 : rope[rope.length-1][0];
+                rope[rope.length-1][1] = c[0] === 'D' ? rope[rope.length-1][1] + 1 : c[0] === 'U' ? rope[rope.length-1][1] - 1 : rope[rope.length-1][1];
+                
+                for (var k = rope.length - 1; k > 0; k--) {
+    
+                    if (Math.abs(rope[k][0] - rope[k-1][0]) > 1) {
+                        rope[k-1][0] = rope[k-1][0] + (rope[k][0] - rope[k-1][0])/Math.abs(rope[k][0] - rope[k-1][0]);
+                        rope[k-1][1] = rope[k][1];
+                    }
+                    if (Math.abs(rope[k][1] - rope[k-1][1]) > 1) {
+                        rope[k-1][1] = rope[k-1][1] + (rope[k][1] - rope[k-1][1])/Math.abs(rope[k][1] - rope[k-1][1]);
+                        rope[k-1][0] = rope[k][0];
+                    }
+                }
+
+                r[`${rope[0][0]}|${rope[0][1]}`] = true;
+            }
+        });
+
+        return r;
+    })
+    .then(o => Object.keys(o).length)
+    .then(console.log)
