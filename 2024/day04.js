@@ -79,3 +79,43 @@ fetch('https://adventofcode.com/2024/day/4/input')
     .then(console.log)
 
 // Puzzle 2
+fetch('https://adventofcode.com/2024/day/4/input')
+    .then(x => x.text())
+    .then(x => x.split('\n'))
+    .then(x => x.slice(0, x.length - 1))
+    .then(input => {
+        const lineLength = input[0].length;
+        let count = 0;
+
+        for (let y = 0; y < input.length; y++) {
+            for (let x = 0; x < lineLength; x++) {
+                if (input[y][x] === 'A') {
+                    const isMUpLeft = 
+                               input[y-1]?.[x-1] === 'M' 
+                            && input[y+1]?.[x+1] === 'S';
+                    const isMUpRight = 
+                               input[y-1]?.[x+1] === 'M' 
+                            && input[y+1]?.[x-1] === 'S';
+                    const isMDownLeft = 
+                               input[y+1]?.[x-1] === 'M' 
+                            && input[y-1]?.[x+1] === 'S';
+                    const isMDownRight = 
+                               input[y+1]?.[x+1] === 'M' 
+                            && input[y-1]?.[x-1] === 'S';
+
+                    const validCount = [
+                        isMUpLeft, 
+                        isMUpRight, 
+                        isMDownLeft, 
+                        isMDownRight
+                    ].filter(x => x).length;
+
+                    if (validCount === 2) count++;
+                }
+                
+            }
+        }
+
+        return count;
+    })
+    .then(console.log)
